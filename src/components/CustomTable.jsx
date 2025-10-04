@@ -1,12 +1,17 @@
 import React from "react";
-import { useState } from "react";
-import { Table, Row, Col } from "react-bootstrap";
+import { Table, Row, Col, Placeholder } from "react-bootstrap";
 import useFiles from "../hooks/useFiles";
 import { useSelector } from "react-redux";
 
 function CustomTable() {
   const param = useSelector((state) => state.search.query);
-  const { data, loading, error, getFile } = useFiles("http://localhost:8000/files/data", param);
+  const { data, loading, error } = useFiles(
+    "http://localhost:8000/files/data",
+    param
+  );
+
+  if (error) return <p>Error: {error}</p>;
+
 
   return (
     <Row>
@@ -22,36 +27,41 @@ function CustomTable() {
               </tr>
             </thead>
             <tbody>
-              {data?.map((file) => {
-                return file.lines.map((line) => {
-                  return (
-                    <tr>
-                      <td>{file.file}</td>
-                      <td>{line.text}</td>
-                      <td>{line.number}</td>
-                      <td>{line.hex}</td>
+              {loading
+                ? Array.from({ length: 5 }).map((_, idx) => (
+                    <tr key={idx}>
+                      <td>
+                        <Placeholder as="p" animation="glow">
+                          <Placeholder xs={8} />
+                        </Placeholder>
+                      </td>
+                      <td>
+                        <Placeholder as="p" animation="glow">
+                          <Placeholder xs={10} />
+                        </Placeholder>
+                      </td>
+                      <td>
+                        <Placeholder as="p" animation="glow">
+                          <Placeholder xs={4} />
+                        </Placeholder>
+                      </td>
+                      <td>
+                        <Placeholder as="p" animation="glow">
+                          <Placeholder xs={6} />
+                        </Placeholder>
+                      </td>
                     </tr>
-                  );
-                });
-              })}
-              {/* <tr>
-                <td>1</td>
-                <td>Juan Pérez</td>
-                <td>juan@example.com</td>
-                <td>Admin</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>María López</td>
-                <td>maria@example.com</td>
-                <td>Usuario</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Carlos Díaz</td>
-                <td>carlos@example.com</td>
-                <td>Editor</td>
-              </tr> */}
+                  ))
+                : data?.map((file, fileIdx) =>
+                    file.lines.map((line, lineIdx) => (
+                      <tr key={`${fileIdx}-${lineIdx}`}>
+                        <td>{file.file}</td>
+                        <td>{line.text}</td>
+                        <td>{line.number}</td>
+                        <td>{line.hex}</td>
+                      </tr>
+                    ))
+                  )}
             </tbody>
           </Table>
         </div>

@@ -19,19 +19,22 @@ function NavBar() {
     debouncedDispatch(e.target.value);
   };
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
+    <Navbar bg="light" variant="light">
       <Container>
-        <Navbar.Brand href="#">ToolBox Frontend Challenge</Navbar.Brand>
+        <Navbar.Brand href="#home">
+          <img
+            src={"https://files.toolboxtve.com/wp-content/uploads/2018/04/15144954/logo-stycky.png"}
+            width="230"
+            height="48"
+            className="d-inline-block align-top"
+            alt="Toolbox Logo"
+          />
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <InputGroup className="pd-3">
             <Form.Control placeholder="Search by file name" aria-label="Filename" onChange={handleChange} />
           </InputGroup>
-          {/* <Nav className="me-auto">
-            <Nav.Link href="#">Inicio</Nav.Link>
-            <Nav.Link href="#">Usuarios</Nav.Link>
-            <Nav.Link href="#">Configuración</Nav.Link>
-          </Nav> */}
         </Navbar.Collapse>
       </Container>
     </Navbar>
