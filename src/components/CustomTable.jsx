@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Row, Col, Placeholder } from "react-bootstrap";
+import { Table, Row, Col, Placeholder, Alert } from "react-bootstrap";
 import useFiles from "../hooks/useFiles";
 import { useSelector } from "react-redux";
 
@@ -9,6 +9,10 @@ function CustomTable() {
     "http://localhost:8000/files/data",
     param
   );
+
+  if (data?.length === 0 && !loading) {
+    return <Alert key={"primary"} variant={"primary"}>No data</Alert>
+  }
 
   if (error) return <p>Error: {error}</p>;
 

@@ -11,7 +11,7 @@ function NavBar() {
   const debouncedDispatch = useCallback(
     debounce((value) => {
       dispatch(setSearchQuery(value));
-    }, 500),
+    }, 300),
     [dispatch]
   );
 
